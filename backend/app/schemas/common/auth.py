@@ -1,4 +1,4 @@
-"""瑞利杰内部端登录接口的请求和响应模型。"""
+"""三端共用登录注册接口的请求和响应模型。"""
 
 from pydantic import BaseModel, Field
 
@@ -13,7 +13,6 @@ class RegisterRequest(BaseModel):
     username: str = Field(..., min_length=1, max_length=50)
     password: str = Field(..., min_length=1, max_length=255)
     position: str = Field(..., min_length=1, max_length=50)
-    biz_type: str | None = Field(default=None, max_length=255)
 
 
 class LogoutRequest(BaseModel):

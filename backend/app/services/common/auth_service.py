@@ -1,42 +1,52 @@
-"""瑞利杰内部端登录服务，负责校验用户并组装令牌、权限和菜单。"""
+"""三端共用认证服务，负责登录、注册、权限菜单组装和令牌生成。"""
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.security.jwt import create_access_token
 from app.core.security.password import hash_password, verify_password
-from app.infrastructure.database.repositories.ruilijie.auth_repository import RuilijieAuthRepository
-from app.schemas.ruilijie.auth import LoginMenu, LoginPermission, LoginResponse, LoginUser
+from app.infrastructure.database.repositories.common.auth_repository import CommonAuthRepository
+from app.schemas.common.auth import LoginMenu, LoginPermission, LoginResponse, LoginUser
 
 
-class RuilijieAuthService:
-    def __init__(self, db: AsyncSession) -> None:
-        self.repository = RuilijieAuthRepository(db)
+class CommonAuthService:
+    def __init__(
+        self,
+        db: AsyncSession,
+        *,
+        client: str,
+        company_code: str,
+        biz_type: str,
+        match_biz_type: bool,
+    ) -> None:
+        self.repository = CommonAuthRepository(db)
+        self.client = client
+        self.company_code = company_code
+        self.biz_type = biz_type
+        self.match_biz_type = match_biz_type
 
     async def login(self, phone: str, password: str) -> LoginResponse | None:
-        user = await self.repository.get_active_ruilijie_user_by_phone(phone)
+        user = await self.repository.get_active_user_by_phone(
+            phone=phone,
+            company=self.company_code,
+            biz_type=self.biz_type,
+            match_biz_type=self.match_biz_type,
+        )
         if user is None or not verify_password(password, user.password):
             return None
         return await self._build_login_response(user)
 
-    async def register(
-        self,
-        *,
-        phone: str,
-        username: str,
-        password: str,
-        position: str,
-        biz_type: str | None,
-    ) -> LoginResponse | None:
+    async def register(self, *, phone: str, username: str, password: str, position: str) -> LoginResponse | None:
         existing_user = await self.repository.get_user_by_phone(phone)
         if existing_user is not None:
             return None
 
-        user = await self.repository.create_ruilijie_user(
+        user = await self.repository.create_user(
             phone=phone,
             username=username,
             password=hash_password(password),
             position=position,
-            biz_type=biz_type,
+            company=self.company_code,
+            biz_type=self.biz_type,
         )
         return await self._build_login_response(user)
 
@@ -50,7 +60,8 @@ class RuilijieAuthService:
             extra={
                 "company": user.company,
                 "position": user.position,
-                "client": "ruilijie",
+                "biz_type": user.biz_type,
+                "client": self.client,
             },
         )
 
@@ -64,10 +75,7 @@ class RuilijieAuthService:
                 biz_type=user.biz_type,
             ),
             permissions=[
-                LoginPermission(
-                    permission_code=item.permission_code,
-                    permission_name=item.permission_name,
-                )
+                LoginPermission(permission_code=item.permission_code, permission_name=item.permission_name)
                 for item in permissions
             ],
             menus=[

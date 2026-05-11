@@ -10,7 +10,7 @@ import { Field, FormPreview } from '../../src/components/form/Field';
 import { Pill, type PillTone } from '../../src/components/status-tag/Pill';
 import { SimpleTable } from '../../src/components/table/SimpleTable';
 import { loginRuilijie, logoutRuilijie, registerRuilijie } from '../../src/api/ruilijie/auth';
-import type { LoginResponse } from '../../src/types/ruilijie/auth';
+import type { LoginResponse } from '../../src/types/common/auth';
 import { clearRuilijieSession, loadRuilijieSession, saveRuilijieSession } from './auth/session';
 import { MainLayout } from './layout/MainLayout';
 import { LoginPage } from './pages/LoginPage';

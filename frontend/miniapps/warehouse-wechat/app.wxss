@@ -1,0 +1,86 @@
+/* 仓库端微信小程序全局样式，定义卡片、按钮、标签和表单基础视觉。 */
+page {
+  background: #f1f5f9;
+  color: #020617;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.page {
+  padding: 28rpx;
+}
+
+.hero {
+  background: #020617;
+  color: #ffffff;
+  border-radius: 16rpx;
+  padding: 32rpx;
+}
+
+.hero-title {
+  font-size: 42rpx;
+  font-weight: 900;
+}
+
+.hero-sub {
+  margin-top: 8rpx;
+  color: #cbd5e1;
+  font-size: 24rpx;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.stat,
+.card {
+  background: #ffffff;
+  border: 1rpx solid #e2e8f0;
+  border-radius: 16rpx;
+  padding: 24rpx;
+}
+
+.stat-value {
+  font-size: 42rpx;
+  font-weight: 900;
+}
+
+.stat-label,
+.muted {
+  color: #64748b;
+  font-size: 24rpx;
+}
+
+.card {
+  margin-top: 20rpx;
+}
+
+.card-title {
+  font-weight: 900;
+  font-size: 30rpx;
+}
+
+.button {
+  margin-top: 18rpx;
+  border-radius: 14rpx;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.button.danger {
+  background: #e11d48;
+}
+
+.tag {
+  display: inline-block;
+  margin-top: 12rpx;
+  border-radius: 999rpx;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 6rpx 16rpx;
+  font-size: 22rpx;
+  font-weight: 800;
+}

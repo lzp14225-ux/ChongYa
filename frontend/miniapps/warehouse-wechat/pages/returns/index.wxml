@@ -1,0 +1,8 @@
+<view class="page">
+  <view class="card">
+    <view class="card-title">RT20260508001</view>
+    <view class="muted">包装破损退货 · 原送货单 DL20260507009</view>
+    <view class="tag">待出库</view>
+    <button class="button danger" bindtap="returnOut">确认退货出库</button>
+  </view>
+</view>

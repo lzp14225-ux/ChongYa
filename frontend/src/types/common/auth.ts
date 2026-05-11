@@ -1,5 +1,5 @@
 /*
- * 瑞利杰内部端登录相关 TypeScript 类型。
+ * 三端共用登录注册相关 TypeScript 类型。
  */
 
 export type LoginRequest = {
@@ -12,7 +12,6 @@ export type RegisterRequest = {
   username: string;
   password: string;
   position: string;
-  biz_type?: string | null;
 };
 
 export type LoginUser = {

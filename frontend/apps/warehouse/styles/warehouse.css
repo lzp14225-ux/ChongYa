@@ -1,0 +1,257 @@
+/*
+ * 仓库 H5 备用端专属样式，模拟微信小程序手机端操作界面。
+ */
+
+.warehouse-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e2e8f0;
+  padding: 20px;
+}
+
+.phone {
+  width: 430px;
+  height: 860px;
+  border: 10px solid #020617;
+  border-radius: 44px;
+  background: #020617;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.25);
+  overflow: hidden;
+}
+
+.screen {
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 34px;
+  background: #f1f5f9;
+}
+
+.notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 2;
+  width: 140px;
+  height: 28px;
+  transform: translateX(-50%);
+  border-radius: 0 0 24px 24px;
+  background: #020617;
+}
+
+.mini-header {
+  background: #020617;
+  color: #ffffff;
+  padding: 48px 20px 22px;
+}
+
+.mini-title {
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.mini-sub,
+.mini-muted {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.stat {
+  border: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 14px;
+  text-align: center;
+}
+
+.stat b {
+  display: block;
+  font-size: 24px;
+}
+
+.stat span {
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+.mini-main {
+  flex: 1;
+  overflow: auto;
+  padding: 18px;
+}
+
+.scan-main {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  padding: 18px;
+  font-size: 19px;
+  font-weight: 900;
+}
+
+.quick {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.quick button {
+  display: flex;
+  min-height: 68px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 8px;
+  background: #ffffff;
+  font-weight: 800;
+}
+
+.mini-card,
+.task-card {
+  margin-top: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 16px;
+}
+
+.mini-card h3,
+.task-card h3 {
+  margin: 0 0 8px;
+}
+
+.mini-card p,
+.task-sub {
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.task-title {
+  font-weight: 900;
+}
+
+.task-card button,
+.panel-form .primary,
+.panel-form .secondary,
+.mini-main > .primary {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+}
+
+.tabbar {
+  display: grid;
+  height: 76px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-top: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+
+.tabbar .tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 0;
+  background: #ffffff;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.tabbar .tab.active {
+  color: #2563eb;
+}
+
+.mini-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.mini-tabs button {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 10px;
+  font-weight: 800;
+}
+
+.mini-tabs button.active {
+  background: #020617;
+  color: #ffffff;
+}
+
+.panel {
+  position: absolute;
+  right: 0;
+  bottom: -100%;
+  left: 0;
+  z-index: 30;
+  height: 72%;
+  overflow: auto;
+  border-radius: 24px 24px 0 0;
+  background: #ffffff;
+  box-shadow: 0 -20px 50px rgba(15, 23, 42, 0.18);
+  padding: 22px;
+  transition: 0.25s ease;
+}
+
+.panel.show {
+  bottom: 0;
+}
+
+.panel h2 {
+  margin: 18px 0;
+}
+
+.panel-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.panel-form p {
+  color: #64748b;
+  line-height: 1.7;
+}
+
+@media (max-width: 520px) {
+  .warehouse-wrap {
+    padding: 0;
+  }
+
+  .phone {
+    width: 100vw;
+    height: 100vh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .screen {
+    border-radius: 0;
+  }
+}

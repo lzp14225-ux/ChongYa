@@ -1,0 +1,10 @@
+/* 仓库微信小程序登录注册页样式。 */
+input {
+  height: 88rpx;
+  margin-top: 20rpx;
+  border: 1rpx solid #e2e8f0;
+  border-radius: 14rpx;
+  background: #f8fafc;
+  padding: 0 22rpx;
+  font-weight: 800;
+}

@@ -67,5 +67,12 @@ class Settings:
     log_max_bytes: int = _required_int_env("LOG_MAX_BYTES")
     log_backup_count: int = _required_int_env("LOG_BACKUP_COUNT")
 
+    ruilijie_company_code: str = _required_env("RUILIJIE_COMPANY_CODE")
+    ruilijie_biz_type: str = _required_env("RUILIJIE_BIZ_TYPE")
+    supplier_company_code: str = _required_env("SUPPLIER_COMPANY_CODE")
+    supplier_biz_type: str = _required_env("SUPPLIER_BIZ_TYPE")
+    warehouse_company_code: str = _required_env("WAREHOUSE_COMPANY_CODE")
+    warehouse_biz_type: str = _required_env("WAREHOUSE_BIZ_TYPE")
+
 
 settings = Settings()

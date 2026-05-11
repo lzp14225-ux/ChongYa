@@ -1,0 +1,7 @@
+<view class="page">
+  <view class="card">
+    <view class="card-title">库存查询</view>
+    <view class="muted">SPCC-20260508 · A-01-03 · 可用 195 KG · 冻结 5 KG</view>
+    <button class="button" bindtap="search">查询库存</button>
+  </view>
+</view>

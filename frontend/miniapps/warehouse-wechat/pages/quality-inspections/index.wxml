@@ -1,0 +1,9 @@
+<view class="page">
+  <view class="card">
+    <view class="card-title">DL20260508002</view>
+    <view class="muted">半成品 A1 · 签收 120 PCS</view>
+    <view class="tag">待质检</view>
+    <button class="button" bindtap="pass">质检合格</button>
+    <button class="button danger">登记异常</button>
+  </view>
+</view>

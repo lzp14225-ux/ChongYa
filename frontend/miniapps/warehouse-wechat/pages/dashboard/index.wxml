@@ -1,0 +1,18 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-title">仓库作业台</view>
+    <view class="hero-sub">瑞利杰一号仓</view>
+  </view>
+  <view class="grid">
+    <view class="stat" wx:for="{{stats}}" wx:key="label">
+      <view class="stat-value">{{item.value}}</view>
+      <view class="stat-label">{{item.label}}</view>
+    </view>
+  </view>
+  <button class="button" bindtap="goScan">扫码收货</button>
+  <view class="card" wx:for="{{tasks}}" wx:key="code">
+    <view class="card-title">{{item.code}}</view>
+    <view class="muted">{{item.desc}}</view>
+    <view class="tag">{{item.status}}</view>
+  </view>
+</view>

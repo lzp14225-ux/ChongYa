@@ -1,0 +1,21 @@
+/*
+ * 供应商端专属样式，覆盖品牌色和局部业务视觉。
+ */
+
+.supplier-page .logo,
+.supplier-page .primary {
+  background: #059669;
+}
+
+.supplier-page .primary:hover {
+  background: #047857;
+}
+
+.supplier-page .menu button.active {
+  color: #064e3b;
+}
+
+.muted-text {
+  color: #64748b;
+  line-height: 1.7;
+}
