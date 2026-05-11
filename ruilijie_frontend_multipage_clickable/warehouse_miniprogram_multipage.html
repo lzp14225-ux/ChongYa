@@ -1,0 +1,90 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>仓库小程序多页面可点击原型</title><style>
+:root{--bg:#f1f5f9;--panel:#fff;--line:#dbe3ee;--text:#020617;--muted:#64748b;--dark:#020617;--blue:#2563eb;--green:#059669;--red:#e11d48;--amber:#d97706}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer}
+.page{min-height:100vh;padding:0;background:#f8fafc}
+.shell{height:100vh;background:#fff;display:flex;overflow:hidden}
+.sidebar{width:255px;background:#020617;color:white;padding:22px 12px;flex-shrink:0}
+.brand{display:flex;gap:12px;align-items:center;padding:0 6px 26px}
+.logo{width:42px;height:42px;border-radius:16px;background:#2563eb;display:flex;align-items:center;justify-content:center;color:white;font-weight:900}
+.logo.green{background:#059669}.logo.orange{background:#f97316}
+.brand-title{font-weight:900;font-size:18px}.brand-sub{font-size:13px;color:#cbd5e1;margin-top:4px}
+.menu{display:flex;flex-direction:column;gap:8px}
+.menu button{width:100%;border:0;background:transparent;color:#e2e8f0;text-align:left;border-radius:16px;padding:13px 16px;font-weight:700;font-size:14px}
+.menu button:hover{background:rgba(255,255,255,.08)}
+.menu button.active{background:white;color:#020617}
+.main{flex:1;min-width:0;background:#f8fafc;overflow:auto}
+.header{height:78px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 32px}
+.title{font-size:26px;font-weight:900}.sub{font-size:14px;color:var(--muted);margin-top:5px}
+.header-actions{display:flex;gap:12px;align-items:center}
+.search{height:44px;width:300px;border:1px solid var(--line);background:#f8fafc;border-radius:16px;color:#94a3b8;display:flex;align-items:center;padding:0 14px;font-size:14px}
+.icon-btn{height:44px;min-width:44px;border:1px solid var(--line);border-radius:16px;background:white;display:flex;align-items:center;justify-content:center;font-weight:800}
+.content{padding:28px 32px 40px}
+.cards{display:grid;gap:18px;margin-bottom:26px}.cards.four{grid-template-columns:repeat(4,1fr)}.cards.three{grid-template-columns:repeat(3,1fr)}.cards.six{grid-template-columns:repeat(6,1fr)}
+.card{background:white;border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:0 8px 24px rgba(15,23,42,.04)}
+.card.click{transition:.18s;text-align:left}.card.click:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(15,23,42,.09)}
+.card-title{font-size:14px;color:var(--muted)}.card-value{font-size:38px;font-weight:900;margin-top:12px}
+.pill{display:inline-flex;border:1px solid;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:800}
+.pill.info{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}.pill.warn{background:#fffbeb;color:#b45309;border-color:#fde68a}.pill.danger{background:#fff1f2;color:#be123c;border-color:#fecdd3}.pill.success{background:#ecfdf5;color:#047857;border-color:#a7f3d0}.pill.gray{background:#f8fafc;color:#475569;border-color:#e2e8f0}
+.grid-2{display:grid;grid-template-columns:1.35fr .65fr;gap:22px}.grid-half{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.section-title{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}.section-title h2{margin:0;font-size:21px}.section-title p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.primary{border:0;background:#020617;color:white;border-radius:16px;padding:10px 16px;font-weight:900}.primary.green{background:#059669}.primary.blue{background:#2563eb}.primary.red{background:#e11d48}
+.secondary{border:1px solid var(--line);background:white;color:#334155;border-radius:16px;padding:9px 14px;font-weight:800}
+.state-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.state{border:0;background:#f8fafc;border-radius:18px;padding:18px;text-align:center}.state:hover{background:#eef2ff}.state b{font-size:26px}
+.table-wrap{overflow:hidden;border:1px solid #e2e8f0;border-radius:20px;background:white}
+table{width:100%;border-collapse:collapse;font-size:14px}th{background:#f8fafc;color:#64748b;text-align:left;padding:14px 16px;font-weight:900}td{border-top:1px solid #f1f5f9;padding:15px 16px}tbody tr{cursor:pointer}tbody tr:hover{background:#f8fafc}
+.toolbar{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap}.filter{border:1px solid var(--line);background:white;border-radius:16px;padding:10px 14px;color:#64748b}
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.field{border:1px solid #e2e8f0;background:#f8fafc;border-radius:16px;padding:12px}.field label{display:block;font-size:12px;color:#64748b;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:0;background:transparent;outline:0;font-weight:800}.field.full{grid-column:1/-1}
+.list{display:flex;flex-direction:column;gap:12px}.list-item{background:#f8fafc;border:0;border-radius:18px;padding:14px;display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left}.list-item:hover{background:#eef2ff}
+.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.lane{background:#f8fafc;border:1px solid #e2e8f0;border-radius:22px;padding:14px}.lane h3{margin:0 0 12px}.mini-card{background:white;border:1px solid #e2e8f0;border-radius:18px;padding:14px;margin-bottom:12px}
+.tabs{display:flex;gap:10px;margin-bottom:18px}.tab{border:1px solid #e2e8f0;background:white;border-radius:999px;padding:10px 16px;font-weight:800}.tab.active{background:#020617;color:white}
+.toast{position:fixed;left:50%;top:22px;z-index:99;transform:translateX(-50%);background:#020617;color:white;padding:12px 18px;border-radius:999px;box-shadow:0 12px 30px rgba(15,23,42,.22);display:none;font-size:14px}.toast.show{display:block}
+.modal-mask{position:fixed;inset:0;background:rgba(15,23,42,.42);display:none;align-items:center;justify-content:center;z-index:80}.modal-mask.show{display:flex}
+.modal{width:620px;max-width:calc(100vw - 40px);background:white;border-radius:28px;padding:24px;box-shadow:0 24px 80px rgba(15,23,42,.28)}.modal h2{margin:0 0 8px}.modal p{color:#64748b;line-height:1.7}.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+.drawer{position:fixed;right:-560px;top:0;height:100vh;width:540px;background:white;box-shadow:-20px 0 60px rgba(15,23,42,.25);z-index:90;transition:.25s;padding:26px;overflow:auto}.drawer.show{right:0}.drawer-row{display:flex;justify-content:space-between;border-bottom:1px solid #f1f5f9;padding:13px 0;font-size:14px}
+.empty{height:320px;border:2px dashed #dbe3ee;border-radius:24px;display:flex;align-items:center;justify-content:center;color:#94a3b8;background:white}
+
+.phone-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#e2e8f0;padding:20px}
+.phone{width:430px;height:860px;border:10px solid #020617;border-radius:44px;background:#020617;box-shadow:0 24px 80px rgba(15,23,42,.25);overflow:hidden}
+.screen{height:100%;background:#f1f5f9;border-radius:34px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.notch{position:absolute;left:50%;top:0;transform:translateX(-50%);width:140px;height:28px;border-radius:0 0 24px 24px;background:#020617;z-index:2}
+.mini-header{background:#020617;color:white;padding:48px 20px 22px}.mini-title{font-size:25px;font-weight:900}.mini-sub{font-size:13px;color:#94a3b8}
+.mini-main{flex:1;overflow:auto;padding:18px}.scan-main{width:100%;border:0;background:#2563eb;color:white;border-radius:28px;padding:18px;font-size:19px;font-weight:900}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.quick button{border:0;background:white;border-radius:22px;padding:14px 8px;font-weight:800}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.stat{border:0;background:rgba(255,255,255,.1);color:white;border-radius:22px;padding:14px;text-align:center}.stat b{font-size:24px}.stat div{font-size:12px;color:#cbd5e1}
+.task-card{background:white;border:1px solid #e2e8f0;border-radius:24px;padding:16px;margin-top:12px}.task-title{font-weight:900}.task-sub{font-size:13px;color:#64748b;line-height:1.6;margin-top:5px}.task-card button{width:100%;border:0;background:#020617;color:white;border-radius:18px;padding:12px;font-weight:900;margin-top:12px}
+.tabbar{height:76px;background:white;border-top:1px solid #e2e8f0;display:grid;grid-template-columns:repeat(5,1fr)}.tab{border:0;background:white;color:#94a3b8;font-size:12px;font-weight:800}.tab.active{color:#2563eb}
+.panel{position:absolute;left:0;right:0;bottom:-100%;height:72%;background:white;border-radius:28px 28px 0 0;z-index:30;transition:.25s;padding:22px;box-shadow:0 -20px 50px rgba(15,23,42,.18);overflow:auto}.panel.show{bottom:0}
+</style></head><body>
+<div id="toast" class="toast"></div><div class="phone-wrap"><div class="phone"><div class="screen"><div class="notch"></div>
+<header class="mini-header"><div class="mini-sub">瑞利杰一号仓</div><div class="mini-title" id="miniTitle">仓库作业台</div><div class="stats"><button class="stat" onclick="render('tasks')"><b>12</b><div>待收货</div></button><button class="stat" onclick="render('quality')"><b>5</b><div>待质检</div></button><button class="stat" onclick="render('inbound')"><b>9</b><div>待入库</div></button></div></header>
+<main id="miniContent" class="mini-main"></main>
+<footer class="tabbar"><button class="tab active" data-page="home" onclick="render('home')">⌂<br/>首页</button><button class="tab" data-page="scan" onclick="render('scan')">▣<br/>扫码</button><button class="tab" data-page="tasks" onclick="render('tasks')">☑<br/>任务</button><button class="tab" data-page="inventory" onclick="render('inventory')">📦<br/>库存</button><button class="tab" data-page="mine" onclick="render('mine')">○<br/>我的</button></footer>
+<div id="panel" class="panel"><button class="secondary" onclick="hidePanel()" style="float:right">关闭</button><h2 id="panelTitle"></h2><div id="panelBody"></div></div>
+</div></div></div>
+<script>
+const $=id=>document.getElementById(id);
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.__t);window.__t=setTimeout(()=>t.classList.remove("show"),2000)}
+function setActive(key){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.page===key))}
+function showPanel(title,body){$("panelTitle").innerHTML=title;$("panelBody").innerHTML=body;$("panel").classList.add("show")}
+function hidePanel(){$("panel").classList.remove("show")}
+function receipt(){showPanel("签收确认","<p class='muted'>冷轧钢板 SPCC · 应收 200 KG</p><div class='field'><label>本次签收数量</label><input value='200 KG'></div><br/><button class='primary blue' style='width:100%;padding:14px' onclick='toast(\"签收成功，进入待质检\");hidePanel()'>确认签收</button><button class='secondary' style='width:100%;margin-top:10px;padding:14px' onclick='exceptionForm()'>登记异常</button>")}
+function quality(){showPanel("质检处理","<p class='muted'>半成品 A1 · 签收 120 PCS</p><button class='primary blue' style='width:100%;padding:14px' onclick='toast(\"质检合格，进入待入库\");hidePanel()'>合格</button><button class='secondary' style='width:100%;margin-top:10px;padding:14px' onclick='exceptionForm()'>不合格</button>")}
+function inbound(){showPanel("入库确认","<p class='muted'>选择库位并确认入库</p><div class='field'><label>库位</label><input value='A-01-03'></div><br/><button class='primary blue' style='width:100%;padding:14px' onclick='toast(\"入库成功，库存已更新\");hidePanel()'>确认入库</button>")}
+function returnOut(){showPanel("退货出库","<p class='muted'>RT20260508001 · 包装破损退货</p><button class='primary red' style='width:100%;padding:14px' onclick='toast(\"退货出库成功\");hidePanel()'>确认退货出库</button>")}
+function exceptionForm(){showPanel("异常登记","<div class='field'><label>异常类型</label><select><option>数量短缺</option><option>包装破损</option><option>质量异常</option></select></div><div class='field'><label>说明</label><input value='短缺 5 KG'></div><br/><button class='primary red' style='width:100%;padding:14px' onclick='toast(\"异常单已提交\");hidePanel()'>提交异常</button>")}
+const pages={
+home:{title:"仓库作业台",html:`<button class="scan-main" onclick="render('scan')">▣ 扫码收货</button><div class="quick"><button onclick="render('scan')">▣<br/>扫码</button><button onclick="toast('模拟拍照上传成功')">📷<br/>拍照</button><button onclick="exceptionForm()">⚠️<br/>异常</button><button onclick="render('inventory')">📦<br/>库存</button></div><h2>今日待办</h2><div class="task-card"><div class="task-title">DL20260508001</div><div class="task-sub">上海拓明材料 · 冷轧钢板 SPCC · 200 KG</div><span class="pill warn">待签收</span><button onclick="receipt()">扫码签收</button></div><div class="task-card"><div class="task-title">DL20260508002</div><div class="task-sub">昆山宏达冲压 · 半成品 A1 · 120 PCS</div><span class="pill info">待质检</span><button onclick="quality()">录入质检</button></div><div class="task-card"><div class="task-title">RT20260508001</div><div class="task-sub">包装破损退货</div><span class="pill danger">退货</span><button onclick="returnOut()">退货出库</button></div>`},
+scan:{title:"扫码",html:`<button class="scan-main" onclick="showPanel('扫码识别','<p class=muted>模拟扫码成功：DL20260508001</p><button class=&quot;primary blue&quot; style=&quot;width:100%;padding:14px&quot; onclick=&quot;receipt()&quot;>进入签收</button>')">启动摄像头扫码</button><div class="card" style="margin-top:16px"><h3>支持识别</h3><p class="muted">送货单码、物料码、箱码、批次码、库位码、退货单码、分切任务码。</p></div>`},
+tasks:{title:"任务",html:`<div class="tabs"><button class="tab active">待收货</button><button class="tab">待质检</button><button class="tab">待入库</button></div><div class="task-card"><div class="task-title">DL20260508001</div><div class="task-sub">冷轧钢板 SPCC · 200 KG</div><button onclick="receipt()">签收</button></div><div class="task-card"><div class="task-title">DL20260508002</div><div class="task-sub">半成品 A1 · 120 PCS</div><button onclick="quality()">质检</button></div>`},
+quality:{title:"质检",html:`<div class="task-card"><div class="task-title">DL20260508002</div><div class="task-sub">半成品 A1 · 签收 120 PCS</div><button onclick="quality()">录入质检结果</button></div>`},
+inbound:{title:"入库",html:`<div class="task-card"><div class="task-title">IN20260508001</div><div class="task-sub">冷轧钢板 SPCC · 可入库 200 KG</div><button onclick="inbound()">确认入库</button></div>`},
+inventory:{title:"库存",html:`<div class="field"><label>物料/批次/库位</label><input value="SPCC-20260508"></div><br/><button class="primary blue" style="width:100%;padding:14px" onclick="toast('查询到库存：可用 195 KG')">查询库存</button><div class="task-card"><div class="task-title">冷轧钢板 SPCC</div><div class="task-sub">库位 A-01-03 · 可用 195 KG · 冻结 5 KG</div><button onclick="showPanel('库存追溯','<p class=muted>来源：PO20260508001 → DL20260508001 → 签收 → 入库</p>')">库存追溯</button></div>`},
+mine:{title:"我的",html:`<div class="card"><h3>仓库收货员</h3><p class="muted">当前仓库：瑞利杰一号仓<br/>今日已处理：18 单</p><button class="primary red" onclick="toast('已退出登录')">退出登录</button></div>`}
+};
+function render(key){const p=pages[key]||pages.home;setActive(key);$("miniTitle").textContent=p.title;$("miniContent").innerHTML=p.html}
+render("home");
+</script></body></html>
